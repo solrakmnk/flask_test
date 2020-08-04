@@ -4,14 +4,15 @@ from typing import List
 import sqlalchemy as sa
 import sqlalchemy.orm as orm
 
-from data.modelBase import SqlAlchemyBase
-from data.releases import Release
+from .modelBase import SqlAlchemyBase
+from .releases import Release
 
 
 class Package(SqlAlchemyBase):
     __tablename__ = 'packages'
     id = sa.Column(sa.String, primary_key=True)
     created_date = sa.Column(sa.DateTime, default=datetime.datetime.now, index=True)
+    updated_date = sa.Column(sa.DateTime, default=datetime.datetime.now, index=True)
     summary = sa.Column(sa.String, nullable=False)
     description = sa.Column(sa.String, nullable=True)
 

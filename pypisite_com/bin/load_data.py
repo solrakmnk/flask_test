@@ -10,14 +10,14 @@ from dateutil.parser import parse
 sys.path.insert(0, os.path.abspath(os.path.join(
     os.path.dirname(__file__), "..", "..")))
 
-from infrastructure.num_convert import try_int
-import data.db_session as db_session
-from data.languages import ProgrammingLanguage
-from data.licenses import License
-from data.maintainers import Maintainer
-from data.package import Package
-from data.releases import Release
-from data.users import User
+from pypisite_com.infrastructure.num_convert import try_int
+import pypisite_com.data.db_session as db_session
+from pypisite_com.data.languages import ProgrammingLanguage
+from pypisite_com.data.licenses import License
+from pypisite_com.data.maintainers import Maintainer
+from pypisite_com.data.package import Package
+from pypisite_com.data.releases import Release
+from pypisite_com.data.users import User
 
 
 def main():

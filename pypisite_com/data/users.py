@@ -1,6 +1,6 @@
 import datetime
 import sqlalchemy
-from data.modelBase import SqlAlchemyBase
+from .modelBase import SqlAlchemyBase
 
 
 class User(SqlAlchemyBase):

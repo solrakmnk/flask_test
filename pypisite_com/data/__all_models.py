@@ -1,14 +1,14 @@
 # noinspection PyUnresolvedReferences
-import data.downloads
+import pypisite_com.data.downloads
 # noinspection PyUnresolvedReferences
-import data.languages
+import pypisite_com.data.languages
 # noinspection PyUnresolvedReferences
-import data.licenses
+import pypisite_com.data.licenses
 # noinspection PyUnresolvedReferences
-import data.maintainers
+import pypisite_com.data.maintainers
 # noinspection PyUnresolvedReferences
-import data.package
+import pypisite_com.data.package
 # noinspection PyUnresolvedReferences
-import data.releases
+import pypisite_com.data.releases
 # noinspection PyUnresolvedReferences
-import data.users
+import pypisite_com.data.users

@@ -1,9 +1,9 @@
 import os
 import sys
 
-import data.db_session as db_session
-from data.package import Package
-from data.releases import Release
+import pypisite_com.data.db_session as db_session
+from pypisite_com.data.package import Package
+from pypisite_com.data.releases import Release
 
 # Make it run more easily outside of PyCharm
 sys.path.insert(0, os.path.abspath(os.path.join(
