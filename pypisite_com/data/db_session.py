@@ -2,7 +2,7 @@ import sqlalchemy as sa
 import sqlalchemy.orm as orm
 from sqlalchemy.orm import Session
 
-from data.modelBase import SqlAlchemyBase
+from .modelBase import SqlAlchemyBase
 
 __factory = None
 
@@ -24,9 +24,6 @@ def global_init(db_file: str):
     # that we probably don't care about in this example.
     engine = sa.create_engine(conn_str, echo=True, connect_args={"check_same_thread": False})
     __factory = orm.sessionmaker(bind=engine)
-
-    # noinspection PyUnresolvedReferences
-    import data.__all_models
 
     SqlAlchemyBase.metadata.create_all(engine)
 

@@ -19,7 +19,7 @@ def setup_db():
 
 
 def register_blueprints():
-    from views import home_views, package_views, account_views, cms_views
+    from pypisite_com.views import home_views, package_views, account_views, cms_views
     app.register_blueprint(home_views.blueprint)
     app.register_blueprint(package_views.blueprint)
     app.register_blueprint(account_views.blueprint)
