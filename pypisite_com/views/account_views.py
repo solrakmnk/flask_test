@@ -1,8 +1,10 @@
 import flask
 
-from pypisite_com.infrastructure import cookie_auth
+from pypisite_com.infrastructure import cookie_auth, request_dict
 from pypisite_com.infrastructure.view_modifiers import response
 from pypisite_com.services import user_service
+from pypisite_com.viewmodels.account.index_viewmodel import IndexViewModel
+from pypisite_com.viewmodels.account.register_viewmodel import RegisterViewModel
 
 blueprint = flask.Blueprint('account', __name__, template_folder='templates')
 
@@ -13,47 +15,36 @@ blueprint = flask.Blueprint('account', __name__, template_folder='templates')
 @blueprint.route('/account')
 @response(template_file='account/index.html')
 def index():
-    user_id = cookie_auth.get_user_id_via_auth_cookie(flask.request)
-    if user_id is None:
+    vm = IndexViewModel()
+    if not vm.user:
         return flask.redirect('account/login')
-    user = user_service.find_user_by_id(user_id)
-    if not user:
-        return flask.redirect('account/login')
-    return {'user': user, 'user_id': user_id}
+    return vm.to_dict()
 
 
 # ################### REGISTER #################################
 
 @blueprint.route('/account/register', methods=['GET'])
+@response(template_file='account/register.html')
 def register_get():
-    return flask.render_template('account/register.html')
+    vm = RegisterViewModel()
+    return vm.to_dict()
 
 
 @blueprint.route('/account/register', methods=['POST'])
 @response(template_file='account/register.html')
 def register_post():
-    r = flask.request
-    name = r.form.get('name')
-    email = r.form.get('email')
-    password = r.form.get('password')
+    vm = RegisterViewModel()
+    vm.validate()
 
-    if not name or not email or not password:
-        return {
-            'name': name,
-            'email': email,
-            'password': password,
-            'error': "Some required fields are missing.",
-        }
-    user = user_service.create_user(name, email, password)
+    if vm.error:
+        return vm.to_dict()
+    user = user_service.create_user(vm.name, vm.email, vm.password)
     if not user:
-        return {
-            'name': name,
-            'email': email,
-            'password': password,
-            'error': "A user with that email already exists."
-        }
+        vm.error = 'The account could not be created'
+        return vm.to_dict()
 
     resp = flask.redirect('/account')
+    cookie_auth.set_auth(resp, user.id)
 
     return resp
 
